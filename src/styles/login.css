@@ -1,0 +1,75 @@
+ #root {
+
+  width: 100%;     /* Make sure parent takes full width */
+  height: 100%;    /* Optional: make full height */
+}
+.parent{
+    margin: 20px auto;
+    width: 250px;
+    height: 300px;
+    padding: 2%;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid rgb(223, 221, 221);
+    font-family: 'Inter', sans-serif;
+    box-shadow: 5px 5px 5px rgb(182, 181, 181);
+    background:linear-gradient(90deg, rgb(86, 248, 248), rgb(255, 142, 161));
+}
+.heading{
+    text-align: center;
+    margin-top: 10px;
+    font-size: 25px;
+}
+.inputField{
+    padding: 10px;
+    width: 220px;
+    margin: 5px;
+    border: 2px solid rgb(223, 221, 221);
+    border-radius: 10px;
+}
+.password_container{
+    position: relative; 
+    display: flex;  
+    align-items: center;    
+}
+
+.image{
+    right: 15px; 
+    position:absolute;
+    height: 10px;
+    width: 10px;
+    cursor: pointer;
+
+}
+.forgot_pass{
+    align-self: self-start;
+    margin-top: 2px;
+    margin-left: 5px;
+    margin-bottom: 10px;
+    color: rgb(99, 97, 97);
+    cursor: pointer;
+}
+.btn{
+    padding: 8px;
+    width: 240px;
+    margin: 5px;
+    border: 2px solid rgb(0, 68, 255);
+    border-radius: 10px;
+    background-color: rgb(0, 68, 255);
+    color: white;
+}
+.heading2{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 11px;
+    color: rgb(126, 124, 124);
+}
+.anchor{
+    font-size: 12px;
+    font-weight: bold;
+    color:rgb(0, 68, 255) ;
+    cursor: pointer;
+}
+
