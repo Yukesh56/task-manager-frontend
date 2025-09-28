@@ -29,6 +29,9 @@
     border: 2px solid rgb(223, 221, 221);
     border-radius: 10px;
 }
+.input-error {
+  border: 2px solid red;
+}
 .password_container{
     position: relative; 
     display: flex;  
@@ -38,8 +41,8 @@
 .image{
     right: 15px; 
     position:absolute;
-    height: 10px;
-    width: 10px;
+    height: 15px;
+    width: 15px;
     cursor: pointer;
 
 }
