@@ -55,28 +55,28 @@ function SignInPage(){
 
         // If three fields are empty.
         if (newErrors.name && newErrors.email && newErrors.password) {
-        toast.error("All fields are required");
-        return;
+            toast.warning("All fields are required");
+            return;
         };
         if (newErrors.name) {
-        toast.error("Name field is required");
-        return;
+            toast.warning("Name field is required");
+            return;
         };
         if (newErrors.email) {
-        toast.error("Email field is required");
-        return;
+            toast.warning("Email field is required");
+            return;
         };
         if (newErrors.password) {
-        toast.error("Password field is required");
-        return;
+            toast.warning("Password field is required");
+            return;
         };
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            toast.error("Enter a valid email.");
+            toast.warning("Enter a valid email.");
             return;
         };
         if (password.length < 6) {
-            toast.error("Password should be at least 6 characters.");
+            toast.warning("Password should be at least 6 characters.");
             return;
         }
         try{
@@ -86,7 +86,9 @@ function SignInPage(){
                 email: userData.email.trim(),
                 password: userData.password
             };
+            // Invoking the method createUser to create the request for registration.
             const res = await createtUser(payload, "/auth/register");
+
             if (res.message === "User registered successfully") {
                 console.log("Success")
                 toast.success(res.message +" " + "Navigating to login page");

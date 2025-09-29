@@ -1,7 +1,6 @@
  #root {
-
-  width: 100%;     /* Make sure parent takes full width */
-  height: 100%;    /* Optional: make full height */
+  width: 100%;    
+  height: 100%;    
 }
 .parent{
     margin: 20px auto;
