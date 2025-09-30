@@ -2,7 +2,7 @@ import { useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import { ToastContainer, toast } from "react-toastify";
 import '../styles/signin.css'
-import { createtUser } from '../services/server';
+import { createtUser } from '../services/authService';
 function SignInPage(){
 
     //state variable to store the userdata
@@ -87,7 +87,7 @@ function SignInPage(){
                 password: userData.password
             };
             // Invoking the method createUser to create the request for registration.
-            const res = await createtUser(payload, "/auth/register");
+            const res = await createtUser(payload, "auth/register");
 
             if (res.message === "User registered successfully") {
                 console.log("Success")

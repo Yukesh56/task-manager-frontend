@@ -2,7 +2,7 @@ import { useState } from 'react'
 import {ToastContainer, toast} from "react-toastify"
 import { useNavigate } from 'react-router-dom';
 import '../styles/login.css'
-import { loginUser } from '../services/server';
+import { loginUser } from '../services/authService';
 function LoginPage(){
     const navigate = useNavigate();
 
@@ -73,17 +73,18 @@ function LoginPage(){
             setLoading(true)
 
             // Invoking the method loginUser to create the request for login
-            let res = await loginUser(tempUserData, "/auth/login")
+            let res = await loginUser(tempUserData, "auth/login")
 
             if (res && res.message === "Login Successful") {
                 console.log("Success")
                 localStorage.setItem("authToken", res.token);
+                console.log(res.token)
                 // const token = localStorage.getItem("authToken");
                 // localStorage.removeItem("authToken");
                 toast.success(res.message +" " + "Welcome to Task Manager");
                 setTimeout(() => {
                     // window.location.href = "https://yukesh56.github.io/portfolio/";
-                    // navigate("/login");
+                    navigate("/dashboard");
                 }, 2000);
             }
             else{

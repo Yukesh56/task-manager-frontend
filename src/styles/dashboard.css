@@ -1,0 +1,96 @@
+.dashboard-container {
+  width: 80%;
+  height: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 2px solid rgb(223, 221, 221);
+  font-family: 'Inter', sans-serif;
+  box-shadow: 5px 5px 5px rgb(182, 181, 181);
+  background:linear-gradient(90deg, rgb(86, 248, 248), rgb(255, 142, 161));
+  overflow: auto;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+  padding: 0%;
+}
+
+.project-form {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.project-form input {
+  padding: 8px;
+  flex: 1;
+  border-radius: 10px;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+.project-card {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+}
+.project-card-input{
+  padding: 8px;
+  border-radius: 8px;
+  margin-left: 0;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 5px 8px;
+}
+.edit-btn {
+  background-color: #3ce74a;
+  color: white;
+  border: none;
+  padding: 5px 8px;
+}
+.update-btn {
+  background-color: #019cf5;
+  color: white;
+  border: none;
+  padding: 5px 8px;
+}
+.no-records{
+  display: flex;
+  justify-content: center;
+  margin-top: 12%;
+}
+.project-card-heading{
+  margin: 0%;
+  text-decoration:underline;
+  color: #504f4f;
+}
+
+.project-card-description{
+  overflow: auto;
+  width: 100%;
+  scrollbar-width: thin;
+}
+.project-card-description::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+

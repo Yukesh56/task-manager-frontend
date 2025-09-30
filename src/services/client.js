@@ -3,6 +3,7 @@ import axios from "axios";
 // Generic function to contact backend
 export async function contactServer(url, request) {
   try {
+    console.log(url, request)
     const response = await axios({
       url, //endPoint
       method: request.method || "POST", //method
