@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { updateProjectService } from '../services/projectService';
-import { ToastContainer, toast} from 'react-toastify';
+import { deleteProjectService, updateProjectService } from '../services/projectService';
+import {toast} from 'react-toastify';
 
-const ProjectCard = ({ project, onProjectUpdated, onProjectDeleted }) => {
+const ProjectCard = ({ project, onProjectUpdated, onProjectDeleted,onProjectClick }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState(project.name);
   const [description, setDescription] = useState(project.description);
@@ -27,7 +27,8 @@ const ProjectCard = ({ project, onProjectUpdated, onProjectDeleted }) => {
   const handledelete = async ( ) => {
       try{
           const token = localStorage.getItem('authToken');
-          await updateProjectService(token, `project/${project.project_id}`)
+          await deleteProjectService(token, `project/${project.project_id}`)
+          console.log(project.project_id)
           toast.success("Project Deletion Successful")
           onProjectDeleted();
       }
@@ -38,7 +39,7 @@ const ProjectCard = ({ project, onProjectUpdated, onProjectDeleted }) => {
       
   };
   return (
-    <div className="project-card">
+    <div className="project-card" onClick={onProjectClick} style={{ cursor: "pointer" }}>
       {isEditing ? <>
           <h5 className='project-card-heading'>Name</h5>
           <input value={name} onChange={e => setName(e.target.value)} className='project-card-input' />
@@ -59,18 +60,6 @@ const ProjectCard = ({ project, onProjectUpdated, onProjectDeleted }) => {
           <button className="delete-btn" onClick={handledelete}>Delete</button>
         </div>
       </>}
-      <ToastContainer 
-        position="top-right"    
-        autoClose={3000}        
-        hideProgressBar={true}  
-        newestOnTop={false}  
-        closeOnClick
-        rtl={false}
-        draggable
-        pauseOnHover
-        pauseOnFocusLoss
-        style={{ marginTop: "50px" }}
-      />
     </div>
   );
 };

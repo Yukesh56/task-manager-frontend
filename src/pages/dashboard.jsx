@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 import ProjectCard from '../components/ProjectCard';
 import ProjectForm from '../components/CreateProjectForm';
 import {fetchProjectService, createProjectService} from '../services/projectService'
@@ -8,6 +9,8 @@ import '../styles/dashboard.css';
 const Dashboard = () => {
   const [projects, setProjects] = useState([]);
   const [showForm, setShowForm] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchProjects();
@@ -50,7 +53,13 @@ const Dashboard = () => {
       {showForm && <ProjectForm onSubmit={handleAddProject} />}
       <div className="project-grid">
         {projects.map(proj => (
-          <ProjectCard key={proj.project_id} project={proj} onProjectUpdated={fetchProjects} onProjectDeleted={fetchProjects}/>
+          <ProjectCard 
+            key={proj.project_id} 
+            project={proj} 
+            onProjectUpdated={fetchProjects} 
+            onProjectDeleted={fetchProjects}
+            onProjectClick={() => navigate(`/project/${proj.project_id}`, { state: { projectName: proj.name } })}
+          />
         ))}
       </div>
       {projects.length == 0 ? <div className='no-records'>

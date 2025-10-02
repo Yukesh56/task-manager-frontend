@@ -46,3 +46,17 @@ export async function updateProjectService(project, token, endpoint) {
 
   return await contactServer(url, request);
 };
+
+// Method to build the request to delete the project
+export async function deleteProjectService( token, endpoint) {
+  const url = `${BASE_URL}${endpoint}`; // combining base URL + endpoint
+
+  const request = {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+  };
+
+  return await contactServer(url, request);
+};
