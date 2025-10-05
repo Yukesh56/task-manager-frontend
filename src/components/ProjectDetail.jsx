@@ -1,69 +1,98 @@
 // src/components/ProjectDetail.jsx
-import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
-import {
-  createTaskService,
-  updateTaskService,
-  deleteTaskService,
-  getTasksByProjectService,
-} from "../services/taskService";
+import { useEffect, useState } from "react";
+import {toast} from "react-toastify";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {createTaskService, updateTaskService, deleteTaskService, getTasksByProjectService} from "../services/taskService";
 import "../styles/ProjectDetail.css";
 import CreateTaskForm from "./CreateTaskForm";
 
 const ProjectDetail = () => {
-  const { projectId } = useParams();
+  const navigate = useNavigate();
+  const { projectId } = useParams(); // Access the params
   const location = useLocation();                  // Access the navigation state
-  const { projectName } = location.state || {};
-  const [tasks, setTasks] = useState([]);
+  const { projectName } = location.state || {}; // Assigning the stateto projectName
+  const [tasks, setTasks] = useState([]); 
   const [showTaskForm, setShowTaskForm] = useState(false);
   const [editTask, setEditTask] = useState(null);
+
 
   const token = localStorage.getItem("authToken");
 
   useEffect(() => {
     fetchTasks();
-    // console.log(projectId, projectName , "HI")
   }, [projectId]);
 
+  // Method to get the tasks for the respective project
   const fetchTasks = async () => {
     const endpoint = `task/${projectId}`;
     const data = await getTasksByProjectService(endpoint, token);
-    setTasks(data || []);
+    setTasks(data || []); 
   };
 
+  // Method will get invoked when user clicks on save or update the task
   const handleTaskSave = async (taskData) => {
-    if (editTask) {
-      // Update existing task
-      const endpoint = `task/${editTask.task_id}`;
-      await updateTaskService(endpoint, taskData, token);
-    } else {
-      // Create new task
-      const endpoint = `task/create`;
-      const payload = { ...taskData, project_id: parseInt(projectId) };
-      await createTaskService(payload, token, endpoint);
+    try{
+      if (editTask) {
+        // Update existing task
+        const endpoint = `task/${editTask.task_id}`;
+        await updateTaskService(endpoint, taskData, token);
+        toast.success("Task Updated successfully")
+      } else {
+        // Create new task
+        const endpoint = `task/create`;
+        const payload = { ...taskData, project_id: parseInt(projectId) };
+        await createTaskService(payload, token, endpoint);
+        toast.success("Task created successfully")
+      }
+      setShowTaskForm(false);
+      setEditTask(null);
+      fetchTasks();
     }
-    setShowTaskForm(false);
-    setEditTask(null);
-    fetchTasks();
+    catch(error){
+        if(error){
+          toast.error("Failed to create the new task")
+        }
+    }
+    finally{
+      setShowTaskForm(false);
+      setEditTask(null);
+      fetchTasks();
+    }
+    
   };
 
+  /* Method gets invoked when user clicks on the edit button in the 
+  task card which will set the state of showTaskForm to true and 
+  assign the task to the statevariable editTask */
   const handleEditClick = (task) => {
     setEditTask(task);
     setShowTaskForm(true);
   };
 
+  // Method will get invoked when user clicks on the delete button in the task card.
   const handleDeleteClick = async (taskId) => {
-    if (window.confirm("Are you sure you want to delete this task?")) {
-      const endpoint = `task/${taskId}`;
-      await deleteTaskService(endpoint, token);
-      fetchTasks();
+    try{
+      if (window.confirm("Are you sure you want to delete this task?")) {
+        const endpoint = `task/${taskId}`;
+        await deleteTaskService(endpoint, token);
+        toast.success("Task deleted successfully")
+        fetchTasks();
+      }
+    }
+    catch(error){
+        if(error){
+          toast.error("Failed to create the new task")
+        }
+    }
+    finally{
+      fetchTasks()
     }
   };
 
   return (
     <div className="project-detail-container">
       <div className="header">
-        <h2>{projectName}</h2>
+        <h2 onClick={()=> navigate("/dashboard")} style={{cursor:"pointer"}}>← {projectName}</h2>
         <button className="add-task-btn" onClick={() => setShowTaskForm(true)}>
           + Create Task
         </button>
@@ -81,7 +110,7 @@ const ProjectDetail = () => {
               <p><strong>Status:</strong> {task.status}</p>
               <p><strong>Priority:</strong> {task.priority}</p>
               <div className="card-actions">
-                <button onClick={() => handleEditClick(task)}>Update</button>
+                <button className="edit-btn" onClick={() => handleEditClick(task)}>Edit</button>
                 <button onClick={() => handleDeleteClick(task.task_id)}>Delete</button>
               </div>
             </div>

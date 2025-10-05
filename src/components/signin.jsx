@@ -40,7 +40,6 @@ function SignInPage(){
 
     // Method to do the validation on click of signin button
     const validateData = async () => {
-        console.log("Hi");
         
         const { name, email, password } = userData;
 
@@ -90,7 +89,6 @@ function SignInPage(){
             const res = await createtUser(payload, "auth/register");
 
             if (res.message === "User registered successfully") {
-                console.log("Success")
                 toast.success(res.message +" " + "Navigating to login page");
                 setTimeout(() => {
                     navigate("/login"); // navigate after 1-1.5 sec
@@ -117,18 +115,6 @@ function SignInPage(){
             <button className='btn_signin' onClick={validateData} disabled={loading}>{loading ? "Signing in..." : "Sign In"}</button>
             <h5 className='heading2'>Already have an account?</h5>
             <a className='anchor' onClick={() => navigate("/login")}>Log In</a>
-            <ToastContainer 
-            position="top-right"    
-            autoClose={3000}        
-            hideProgressBar={true}  
-            newestOnTop={false}  
-            closeOnClick
-            rtl={false}
-            draggable
-            pauseOnHover
-            pauseOnFocusLoss
-            style={{ marginTop: "50px" }} // margin from top
-            />
         </div>
     )
 }

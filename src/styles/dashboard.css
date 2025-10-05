@@ -19,15 +19,57 @@
 }
 
 .project-form {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
   display: flex;
-  gap: 10px;
-  margin: 15px 0;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.project-container{
+  background: linear-gradient(90deg, rgb(86, 248, 248), rgb(255, 142, 161));
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  height: 350px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
 }
 
 .project-form input {
   padding: 8px;
-  flex: 1;
   border-radius: 10px;
+  margin-bottom: 20px;
+  width: 300px;
+}
+.project-form textarea {
+  padding: 8px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  width: 300px;
+  height: 200px;
+  resize: none;
+}
+.btn-submit{
+  background-color: #3ce74a;
+  margin-top: 15px;
+  align-items: center;
+}
+.img-close{
+  width: 20px;
+  position: absolute;
+  right:5px;
+  top: 5px;
+  cursor: pointer;
+  border: 1px solid rgb(19, 17, 17);
+  border-radius: 5px;
 }
 
 .project-grid {
@@ -55,6 +97,12 @@
   justify-content: space-between;
   margin-top: 10px;
 }
+.view-btn {
+  background-color: #3c47e7;
+  color: white;
+  border: none;
+  padding: 5px 8px;
+}
 
 .delete-btn {
   background-color: #e74c3c;
@@ -63,7 +111,14 @@
   padding: 5px 8px;
 }
 .edit-btn {
-  background-color: #3ce74a;
+  background-color: #3ce74a !important;
+  color: white;
+  border: none;
+  padding: 5px 8px;
+  margin-right: 10px;
+}
+.view-btn {
+  background-color: #1bd7f0 !important;
   color: white;
   border: none;
   padding: 5px 8px;

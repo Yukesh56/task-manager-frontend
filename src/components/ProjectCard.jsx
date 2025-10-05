@@ -26,11 +26,13 @@ const ProjectCard = ({ project, onProjectUpdated, onProjectDeleted,onProjectClic
   //Method to update the project
   const handledelete = async ( ) => {
       try{
-          const token = localStorage.getItem('authToken');
-          await deleteProjectService(token, `project/${project.project_id}`)
-          console.log(project.project_id)
-          toast.success("Project Deletion Successful")
-          onProjectDeleted();
+          if(window.confirm("Are you sure you want to delete this project?")){
+            const token = localStorage.getItem('authToken');
+            await deleteProjectService(token, `project/${project.project_id}`)
+            toast.success("Project Deletion Successful")
+            onProjectDeleted();
+          } 
+          
       }
       catch(err){
           toast.error(err.message || "Project delete failed")
@@ -39,7 +41,7 @@ const ProjectCard = ({ project, onProjectUpdated, onProjectDeleted,onProjectClic
       
   };
   return (
-    <div className="project-card" onClick={onProjectClick} style={{ cursor: "pointer" }}>
+    <div className="project-card">
       {isEditing ? <>
           <h5 className='project-card-heading'>Name</h5>
           <input value={name} onChange={e => setName(e.target.value)} className='project-card-input' />
@@ -56,8 +58,12 @@ const ProjectCard = ({ project, onProjectUpdated, onProjectDeleted,onProjectClic
         <h5 className='project-card-heading'>Project Description</h5>
         <p className='project-card-description'>{project.description}</p>
         <div className="card-actions">
-          <button onClick={() => setIsEditing(true)} className="edit-btn">Edit</button>
-          <button className="delete-btn" onClick={handledelete}>Delete</button>
+            <button className="view-btn" onClick={onProjectClick} style={{ cursor: "pointer" }}>View</button>
+          <div>
+              <button onClick={() => setIsEditing(true)} className="edit-btn">Edit</button>
+              <button className="delete-btn" onClick={handledelete}>Delete</button>
+          </div>
+          
         </div>
       </>}
     </div>

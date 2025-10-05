@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import ProjectCard from '../components/ProjectCard';
-import ProjectForm from '../components/CreateProjectForm';
+import ProjectCard from './ProjectCard';
+import ProjectForm from './CreateProjectForm';
 import {fetchProjectService, createProjectService} from '../services/projectService'
 import '../styles/dashboard.css';
 
@@ -16,17 +16,19 @@ const Dashboard = () => {
     fetchProjects();
   }, []);
 
+  // Method to get the projects to the respective user
   const fetchProjects = async () => {
     try{
         const token = localStorage.getItem('authToken');
         const res = await fetchProjectService(token, "project/getprojects")
-        setProjects(res);
+        setProjects(res); // setting the projects to the state variable
     }
     catch(err){
         toast.error(err.message || "SomeThing Went Wrong please try again after some time")
     }
   };
 
+  //Method to add the new project
   const handleAddProject = async (projectData) => {
     try{
         const token = localStorage.getItem('authToken');
@@ -50,7 +52,7 @@ const Dashboard = () => {
         <h2>Your Projects</h2>
         <button onClick={() => setShowForm(!showForm)}>+ Add Project</button>
       </div>
-      {showForm && <ProjectForm onSubmit={handleAddProject} />}
+      
       <div className="project-grid">
         {projects.map(proj => (
           <ProjectCard 
@@ -65,18 +67,10 @@ const Dashboard = () => {
       {projects.length == 0 ? <div className='no-records'>
         {projects.length == 0 ? <h1 >No projects found</h1> : null}
       </div> : null}
-      <ToastContainer 
-        position="top-right"    
-        autoClose={3000}        
-        hideProgressBar={true}  
-        newestOnTop={false}  
-        closeOnClick
-        rtl={false}
-        draggable
-        pauseOnHover
-        pauseOnFocusLoss
-        style={{ marginTop: "50px" }}
-      />
+      {showForm && <ProjectForm 
+        onSubmit={handleAddProject}
+        onClose = {() => setShowForm(!showForm)} 
+      />}
     </div>
   );
 };

@@ -1,9 +1,10 @@
 import { BrowserRouter,Routes, Route } from "react-router-dom"
-import LoginPage from "./pages/login"
-import SignInPage from "./pages/signin";
-import DashboardPage from "./pages/dashboard";
+import LoginPage from "./components/login"
+import SignInPage from "./components/signin";
+import DashboardPage from "./components/dashboard";
 import ProjectDetail from "./components/ProjectDetail"
 import CreateTaskForm from "./components/CreateTaskForm"
+import { ToastContainer } from "react-toastify";
 function App() {
   return(
     <BrowserRouter>
@@ -15,6 +16,19 @@ function App() {
         <Route path="/project/:projectId" element={<ProjectDetail />}></Route>
         <Route path="/createtask" element={<CreateTaskForm />}></Route>
       </Routes>
+
+      <ToastContainer
+        position="top-right"    
+        autoClose={3000}        
+        hideProgressBar={true}  
+        newestOnTop={false}  
+        closeOnClick
+        rtl={false}
+        draggable
+        pauseOnHover
+        pauseOnFocusLoss
+        style={{ marginTop: "50px" }}
+      />
     </BrowserRouter>
   );
   

@@ -1,5 +1,6 @@
 // src/components/CreateTaskForm.jsx
 import React, { useState, useEffect } from "react";
+import {toast, ToastContainer} from 'react-toastify';
 import "../styles/CreateTaskForm.css";
 
 const CreateTaskForm = ({ onClose, onSave, initialData }) => {
@@ -10,6 +11,7 @@ const CreateTaskForm = ({ onClose, onSave, initialData }) => {
     status: "yet to start",
     priority: "medium",
   });
+
 
   useEffect(() => {
     if (initialData) {
@@ -23,23 +25,16 @@ const CreateTaskForm = ({ onClose, onSave, initialData }) => {
     }
   }, [initialData]);
 
+  // Onchange method gets invoked when user changes the value in the task form
   const handleChange = (e) => {
     const { name, value } = e.target;
     setTask((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Method invokes to validate the data when user clicks on the save button 
   const handleSaveClick = () => {
-    // Basic validation
     if (!task.title.trim()) {
-      alert("Title is required");
-      return;
-    }
-    if (!task.status) {
-      alert("Status is required");
-      return;
-    }
-    if (!task.priority) {
-      alert("Priority is required");
+      toast.warning("Title is required");
       return;
     }
     onSave(task);

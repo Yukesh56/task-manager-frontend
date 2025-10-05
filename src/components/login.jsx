@@ -51,7 +51,6 @@ function LoginPage(){
         setErrors(newErrors)
 
         if(newErrors.email && newErrors.password){
-            console.log(newErrors.email)
             toast.warning("All the fields are reqired")
             return
         }
@@ -76,16 +75,9 @@ function LoginPage(){
             let res = await loginUser(tempUserData, "auth/login")
 
             if (res && res.message === "Login Successful") {
-                console.log("Success")
                 localStorage.setItem("authToken", res.token);
-                console.log(res.token)
-                // const token = localStorage.getItem("authToken");
-                // localStorage.removeItem("authToken");
                 toast.success(res.message +" " + "Welcome to Task Manager");
-                setTimeout(() => {
-                    // window.location.href = "https://yukesh56.github.io/portfolio/";
-                    navigate("/dashboard");
-                }, 2000);
+                navigate("/dashboard");
             }
             else{
                 throw new Error("SomeThing Went Wrong. Please try again after some time")
@@ -110,18 +102,6 @@ function LoginPage(){
             <button className='btn' disabled={loading} onClick={validateData}>{loading ? "Logging In...." : "Log In"}</button>
             <h5 className='heading2'>Don't have an account</h5>
             <a className='anchor' onClick={() => navigate("/signin")}>Sign Up</a>
-            <ToastContainer 
-                position="top-right"    
-                autoClose={3000}        
-                hideProgressBar={true}  
-                newestOnTop={false}  
-                closeOnClick
-                rtl={false}
-                draggable
-                pauseOnHover
-                pauseOnFocusLoss
-                style={{ marginTop: "50px" }} 
-            />
         </div>
     )
 }
