@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { deleteProjectService, updateProjectService } from '../services/projectService';
 import {toast} from 'react-toastify';
+import showConfirmToast from '../utils/toasts';
 
 const ProjectCard = ({ project, onProjectUpdated, onProjectDeleted,onProjectClick }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -24,22 +25,19 @@ const ProjectCard = ({ project, onProjectUpdated, onProjectDeleted,onProjectClic
   };
 
   //Method to update the project
-  const handledelete = async ( ) => {
-      try{
-          if(window.confirm("Are you sure you want to delete this project?")){
-            const token = localStorage.getItem('authToken');
-            await deleteProjectService(token, `project/${project.project_id}`)
-            toast.success("Project Deletion Successful")
-            onProjectDeleted();
-          } 
-          
-      }
-      catch(err){
-          toast.error(err.message || "Project delete failed")
-      }
-      
-      
-  };
+  const handledelete = async () => {
+  const token = localStorage.getItem("authToken");
+
+  showConfirmToast("Are you sure you want to delete this project?", async () => {
+    try {
+      await deleteProjectService(token, `project/${project.project_id}`);
+      toast.success("Project Deletion Successful");
+      onProjectDeleted();
+    } catch (err) {
+      toast.error(err.message || "Project delete failed");
+    }
+  });
+};
   return (
     <div className="project-card">
       {isEditing ? <>
